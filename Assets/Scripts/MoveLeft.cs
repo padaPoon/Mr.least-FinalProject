@@ -6,7 +6,7 @@ public class MoveLeft : MonoBehaviour
     public float speed = 10f;
     
     // ใช้ static เพื่อให้ทุก object ใช้ค่าเดียวกัน รวมถึง object ที่ spawn ทีหลัง
-    public static float speedMultiplier = 1f;
+    public static float speedMultiplier = 2f;
 
     void Update()
     {
@@ -24,6 +24,6 @@ public class MoveLeft : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Debug.Log($"Current speed: {speed * speedMultiplier}");
+        
     }
 }

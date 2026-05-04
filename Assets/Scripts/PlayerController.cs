@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Diagnostics;
 
 public class PlayerController : MonoBehaviour
 {
@@ -33,12 +34,18 @@ public class PlayerController : MonoBehaviour
     private float targetRotationZ = 0f;
     private Vector3 originalGravity;
 
+
+    public int Maxhealth = 3;
+    public int curentHealth;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
 
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
+
+        curentHealth = Maxhealth;
     }
 
     void Start()
@@ -138,6 +145,20 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
+            TakeDamage(1);
+            Debug.Log("Collided with obstacle! Current Health: " + curentHealth);
+        }
+    }
+
+
+    public void TakeDamage(int damage)
+    {
+        if (gameOver) return;
+
+        curentHealth -= damage;
+        if (curentHealth <= 0)
+        {
+            curentHealth = 0;
             Debug.Log("Game Over!");
             gameOver = true;
             animator.SetBool("Death_b", true);

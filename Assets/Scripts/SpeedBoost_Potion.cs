@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpeedBoost : MonoBehaviour
 {
-    public float speedMultiplier = 2f;
+    public float speedMultiplier = 20f;
     public float animationSpeedMultiplier = 1.5f;
     public float duration = 5f;
 
