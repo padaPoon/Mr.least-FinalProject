@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
     public int Maxhealth = 3;
     public int curentHealth;
 
+
+    public bool isImmune = false;
+    public float immunityDuration = 5f;
+    public Color immuneColor = Color.yellow;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -141,6 +146,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {   
+            if(isImmune) return;
             TakeDamage(1);
             Debug.Log("Collided with obstacle! Current Health: " + curentHealth);
             animator.SetInteger("DeathType_int", 1);
@@ -148,6 +154,9 @@ public class PlayerController : MonoBehaviour
             Instantiate(fxExplosionPrefab, transform.position, Quaternion.identity);
             audioSource.PlayOneShot(crashSound);
         }
+
+
+
     }
 
 
@@ -165,5 +174,33 @@ public class PlayerController : MonoBehaviour
 
             
         }
+    }
+
+    public void ActivateImmunity()
+    {
+        if (isImmune) StopCoroutine(nameof(ImmortalityCoroutine)); // reset ถ้าเก็บซ้ำ
+        StartCoroutine(ImmortalityCoroutine(immunityDuration));
+    }
+
+    private IEnumerator ImmortalityCoroutine(float duration)
+    {
+        isImmune = true;
+
+        // กระพริบตัวละครตอน immune
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        float elapsed = 0f;
+        bool visible = true;
+
+    while (elapsed < duration)
+    {
+        visible = !visible;
+        foreach (Renderer r in renderers) r.enabled = visible;
+        yield return new WaitForSeconds(0.15f);
+        elapsed += 0.15f;
+    }
+
+        // คืนค่าปกติ
+        foreach (Renderer r in renderers) r.enabled = true;
+        isImmune = false;
     }
 }
