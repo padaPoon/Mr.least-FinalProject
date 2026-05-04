@@ -52,8 +52,6 @@ public class PlayerController : MonoBehaviour
         Physics.gravity *= gravityMultiplier;
         originalGravity = Physics.gravity;
         animator.SetFloat("Speed_f", 1.0f);
-
-        // Make sure starting state matches isBall = false
         ApplyBallState();
     }
 
@@ -62,7 +60,6 @@ public class PlayerController : MonoBehaviour
         if (gameOver) return;
         if (Keyboard.current == null) return;
 
-        // Toggle ball form with W
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
             isBall = !isBall;

@@ -12,8 +12,8 @@ public class SpeedBoost : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
-            StartCoroutine(ApplySpeedBoost(player));
-            
+            player.StartCoroutine(ApplySpeedBoost(player));
+
             Destroy(gameObject);
         }
     }

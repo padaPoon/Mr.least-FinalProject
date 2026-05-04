@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public Transform spawnPoint;
+    public Transform[] spawnPoint;
     public GameObject[] obstaclePrefab;
     public float spawnRate = 2f;
 
@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
         int randomIndex = Random.Range(0, obstaclePrefab.Length);
         Instantiate(
             obstaclePrefab[randomIndex],
-            spawnPoint.position,
+            spawnPoint[Random.Range(0, spawnPoint.Length)].position,
             obstaclePrefab[randomIndex].transform.rotation
         );
     }
