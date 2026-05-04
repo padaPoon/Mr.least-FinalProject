@@ -18,6 +18,15 @@ public class PlayerController : MonoBehaviour
     public AudioClip jumpSound; 
 
     private bool isOnGround = true;
+    private bool isUpsideDown = false;
+
+    public void FlipGravity()
+    {
+        isUpsideDown = !isUpsideDown;
+        Physics.gravity = new Vector3(0f, -Physics.gravity.y, 0f);
+        transform.Rotate(0f, 0f, 180f);
+        isOnGround = false;
+    }
 
     void Awake()
     {
@@ -49,7 +58,8 @@ public class PlayerController : MonoBehaviour
 
         if (jumpAction.triggered && isOnGround)
         {
-            rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
+            Vector3 jumpDir = isUpsideDown ? Vector3.down : Vector3.up;
+            rb.AddForce(jumpForce * jumpDir, ForceMode.Impulse);
             isOnGround = false;
             animator.SetTrigger("Jump_trig");
             fxDirt.Stop();
