@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using System.Diagnostics;
 
 public class PlayerController : MonoBehaviour
 {
@@ -144,7 +143,7 @@ public class PlayerController : MonoBehaviour
             fxDirt.Play();
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
-        {
+        {   
             TakeDamage(1);
             Debug.Log("Collided with obstacle! Current Health: " + curentHealth);
         }

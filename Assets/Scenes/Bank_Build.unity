@@ -692,7 +692,7 @@ Transform:
   m_GameObject: {fileID: 1183671264}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22, y: 1, z: 0}
+  m_LocalPosition: {x: 22, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -914,12 +914,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 10
   gravityMultiplier: 2
-  gameOver: 0
+  flipRotationSpeed: 1080
+  flipJumpForce: 15
+  flipDelay: 0.2
   animator: {fileID: 1667492346595872702}
   fxDirt: {fileID: 559113530}
   fxExplosionPrefab: {fileID: 2630815748524575241, guid: cb7cd9b0c56a24d49a40784bd3203ae6, type: 3}
   crashSound: {fileID: 8300000, guid: 4bcde6de2166e41e284ec46d8a01fb90, type: 3}
   jumpSound: {fileID: 8300000, guid: 08ab7053d586c458db3774d33c141a4b, type: 3}
+  normalModel: {fileID: 0}
+  ballModel: {fileID: 0}
+  boxCollider: {fileID: 0}
+  sphereCollider: {fileID: 0}
+  gameOver: 0
+  Maxhealth: 3
+  curentHealth: 0
 --- !u!65 &1667492346595872700
 BoxCollider:
   m_ObjectHideFlags: 0
