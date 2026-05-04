@@ -1,31 +1,29 @@
+using System.Collections;
 using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
     public float speed = 10f;
+    
+    // ใช้ static เพื่อให้ทุก object ใช้ค่าเดียวกัน รวมถึง object ที่ spawn ทีหลัง
+    public static float speedMultiplier = 1f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        // 1.17 stop moving left when the game is over
         GameObject player = GameObject.Find("Player");
         bool isGameOver = player.GetComponent<PlayerController>().gameOver;
         if (isGameOver)
         {
-            speed = 0;
+            return;
         }
 
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        transform.Translate(Vector3.left * speed * speedMultiplier * Time.deltaTime);
 
         if (transform.position.x < -15 && gameObject.CompareTag("Obstacle"))
         {
             Destroy(gameObject);
         }
+
+        Debug.Log($"Current speed: {speed * speedMultiplier}");
     }
 }
