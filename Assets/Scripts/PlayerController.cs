@@ -146,6 +146,10 @@ public class PlayerController : MonoBehaviour
         {   
             TakeDamage(1);
             Debug.Log("Collided with obstacle! Current Health: " + curentHealth);
+            animator.SetInteger("DeathType_int", 1);
+            fxDirt.Stop();
+            Instantiate(fxExplosionPrefab, transform.position, Quaternion.identity);
+            audioSource.PlayOneShot(crashSound);
         }
     }
 
@@ -161,10 +165,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Game Over!");
             gameOver = true;
             animator.SetBool("Death_b", true);
-            animator.SetInteger("DeathType_int", 1);
-            fxDirt.Stop();
-            Instantiate(fxExplosionPrefab, transform.position, Quaternion.identity);
-            audioSource.PlayOneShot(crashSound);
+
+            
         }
     }
 }
