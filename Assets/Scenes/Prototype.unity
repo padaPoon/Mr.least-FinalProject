@@ -155,6 +155,7 @@ MonoBehaviour:
   - {fileID: 8872066452297259089, guid: ea64f003a1d29fc4bac7b8e72247c4ad, type: 3}
   - {fileID: 3668470832005193684, guid: 434e573315f35184497735c87d92375e, type: 3}
   - {fileID: 1462476399949138283, guid: dd4444ff6832af94da684cc1f51b219b, type: 3}
+  - {fileID: 4989520898592384645, guid: fc3bbf3587f4c2e47bf9dedef5843340, type: 3}
   spawnRate: 2
 --- !u!4 &132895512
 Transform:
