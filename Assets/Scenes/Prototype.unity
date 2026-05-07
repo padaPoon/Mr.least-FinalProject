@@ -153,9 +153,9 @@ MonoBehaviour:
   - {fileID: 1120623391}
   obstaclePrefab:
   - {fileID: 8872066452297259089, guid: ea64f003a1d29fc4bac7b8e72247c4ad, type: 3}
-  - {fileID: 3668470832005193684, guid: 434e573315f35184497735c87d92375e, type: 3}
-  - {fileID: 1462476399949138283, guid: dd4444ff6832af94da684cc1f51b219b, type: 3}
-  - {fileID: 4989520898592384645, guid: fc3bbf3587f4c2e47bf9dedef5843340, type: 3}
+  - {fileID: 2388469041918420798, guid: 434e573315f35184497735c87d92375e, type: 3}
+  - {fileID: 553790796840084489, guid: 497d65959fea3ac41babc95f4136d27b, type: 3}
+  - {fileID: 6967236077451463411, guid: fc3bbf3587f4c2e47bf9dedef5843340, type: 3}
   spawnRate: 2
 --- !u!4 &132895512
 Transform:
@@ -692,7 +692,7 @@ Transform:
   m_GameObject: {fileID: 1120623390}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22, y: 8.09, z: 0}
+  m_LocalPosition: {x: 22, y: 7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -723,7 +723,7 @@ Transform:
   m_GameObject: {fileID: 1183671264}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22, y: 0.6, z: 0}
+  m_LocalPosition: {x: 22, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -12,6 +12,7 @@ public class ImmortalPotion : MonoBehaviour
             if (player != null)
             {
                 player.ActivateImmunity();
+                Debug.Log("Player is now immune for " + duration + " seconds!");
             }
             Destroy(gameObject);
         }
