@@ -1,65 +1,57 @@
-using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class Player_ui : MonoBehaviour
 {
+    [Header("Heart Sprites")]
     public Sprite emptyHeart;
-    public Sprite fullHeart1;
-    public Sprite fullHeart2;
+    public Sprite fullHeart1;     // หัวใจของ Player 1
+    public Sprite fullHeart2;     // หัวใจของ Player 2
 
-    public Image[] hearts;
-    public Image[] hearts2;
+    [Header("Player 1 UI")]
+    public Image[] hearts;        // หัวใจของ Player 1
 
-    private PlayerController playerController;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Player 2 UI")]
+    public Image[] hearts2;       // หัวใจของ Player 2
+
+    private PlayerController player1;
+    private PlayerController player2;
+
     void Start()
     {
-        playerController = GetComponent<PlayerController>();
-        if (playerController == null)
+        // หา player ทั้งหมดในฉาก
+        PlayerController[] allPlayers = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+
+        // จับคู่ตาม PlayerID
+        foreach (var p in allPlayers)
         {
-            playerController = FindObjectOfType<PlayerController>();
+            if (p.playerID == PlayerController.PlayerID.Player1)
+                player1 = p;
+            else if (p.playerID == PlayerController.PlayerID.Player2)
+                player2 = p;
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (playerController != null)
-        {
-            UpdateHearts();
-        }
+        if (player1 != null)
+            UpdateHearts(hearts, fullHeart1, player1);
+
+        if (player2 != null)
+            UpdateHearts(hearts2, fullHeart2, player2);
     }
 
-    void UpdateHearts()
+    void UpdateHearts(Image[] heartImages, Sprite fullSprite, PlayerController player)
     {
-        int maxHealth = playerController.Maxhealth;
-        int currentHealth = playerController.curentHealth;
+        if (heartImages == null) return;
 
-        // Update hearts array based on current health
-        for (int i = 0; i < hearts.Length; i++)
-        {
-            if (i < currentHealth)
-            {
-                hearts[i].sprite = fullHeart1;
-            }
-            else
-            {
-                hearts[i].sprite = emptyHeart;
-            }
-        }
+        int currentHealth = player.curentHealth;
 
-        // Update hearts2 array if needed
-        for (int i = 0; i < hearts2.Length; i++)
+        for (int i = 0; i < heartImages.Length; i++)
         {
-            if (i < currentHealth)
-            {
-                hearts2[i].sprite = fullHeart2;
-            }
-            else
-            {
-                hearts2[i].sprite = emptyHeart;
-            }
+            if (heartImages[i] == null) continue;
+
+            heartImages[i].sprite = (i < currentHealth) ? fullSprite : emptyHeart;
         }
     }
 }

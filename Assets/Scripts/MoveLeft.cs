@@ -23,7 +23,6 @@ public class MoveLeft : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log("Current Speed: " + (speed * speedMultiplier));   
         
     }
 }
