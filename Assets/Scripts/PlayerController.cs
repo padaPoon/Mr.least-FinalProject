@@ -4,11 +4,19 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum PlayerID { Player1, Player2 }
+
+    [Header("Player Setup")]
+    public PlayerID playerID = PlayerID.Player1;
+
+    [Header("Movement")]
     public float jumpForce = 10f;
-    public float gravityMultiplier = 1f;
+    public float gravityStrength = 20f;        // ใช้แทน gravityMultiplier
     public float flipRotationSpeed = 1080f;
     public float flipJumpForce = 15f;          
     public float flipDelay = 0.2f;              
+
+    [Header("References")]
     public Animator animator;
     public ParticleSystem fxDirt;
     public GameObject fxExplosionPrefab;
@@ -16,10 +24,22 @@ public class PlayerController : MonoBehaviour
     public AudioClip jumpSound;
 
     [Header("Ball Form")]
-    public GameObject normalModel;        // your normal character mesh
-    public GameObject ballModel;          // your ball mesh
-    public BoxCollider boxCollider;       // assign in inspector
-    public SphereCollider sphereCollider; // assign in inspector
+    public GameObject normalModel;
+    public GameObject ballModel;
+    public BoxCollider boxCollider;
+    public SphereCollider sphereCollider;
+
+    [Header("Health")]
+    public int Maxhealth = 3;
+    public int curentHealth;
+
+    [Header("Immunity")]
+    public bool isImmune = false;
+    public float immunityDuration = 5f;
+    public Color immuneColor = Color.yellow;
+
+    [Header("Speed Boost")]
+    public float speedBoostMultiplier = 2f;
 
     public bool gameOver = false;
 
@@ -31,33 +51,47 @@ public class PlayerController : MonoBehaviour
     private bool isFlipping = false;
     private bool isBall = false;
     private float targetRotationZ = 0f;
-    private Vector3 originalGravity;
 
+    // ปุ่มของแต่ละคน
+    private Key jumpKey;
+    private Key flipKey;
+    private Key ballKey;
 
-    public int Maxhealth = 3;
-    public int curentHealth;
-
-
-    public bool isImmune = false;
-    public float immunityDuration = 5f;
-    public Color immuneColor = Color.yellow;
+    private Coroutine immunityCo;
+    private Coroutine speedBoostCo;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;             // ปิด gravity ของ Unity ใช้ของเราเอง
 
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
 
         curentHealth = Maxhealth;
+        SetupKeys();
     }
 
     void Start()
     {
-        Physics.gravity *= gravityMultiplier;
-        originalGravity = Physics.gravity;
-        animator.SetFloat("Speed_f", 1.0f);
+        if (animator != null) animator.SetFloat("Speed_f", 1.0f);
         ApplyBallState();
+    }
+
+    void SetupKeys()
+    {
+        if (playerID == PlayerID.Player1)
+        {
+            jumpKey = Key.Space;
+            flipKey = Key.Q;
+            ballKey = Key.W;
+        }
+        else // Player2
+        {
+            jumpKey = Key.UpArrow;
+            flipKey = Key.DownArrow;
+            ballKey = Key.RightArrow;
+        }
     }
 
     void Update()
@@ -65,14 +99,15 @@ public class PlayerController : MonoBehaviour
         if (gameOver) return;
         if (Keyboard.current == null) return;
 
-        if (Keyboard.current.wKey.wasPressedThisFrame)
+        // Ball toggle
+        if (Keyboard.current[ballKey].wasPressedThisFrame)
         {
             isBall = !isBall;
             ApplyBallState();
         }
 
-        //Space
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && isOnGround && !isFlipping)
+        // Jump
+        if (Keyboard.current[jumpKey].wasPressedThisFrame && isOnGround && !isFlipping)
         {
             Vector3 jumpDir = isUpsideDown ? Vector3.down : Vector3.up;
             rb.AddForce(jumpForce * jumpDir, ForceMode.Impulse);
@@ -82,8 +117,8 @@ public class PlayerController : MonoBehaviour
             audioSource.PlayOneShot(jumpSound);
         }
 
-        //กระโดดก่อนพลิก
-        if (Keyboard.current.qKey.wasPressedThisFrame && isOnGround && !isFlipping)
+        // Flip
+        if (Keyboard.current[flipKey].wasPressedThisFrame && isOnGround && !isFlipping)
         {
             StartCoroutine(JumpAndFlip());
         }
@@ -97,13 +132,19 @@ public class PlayerController : MonoBehaviour
             transform.rotation, target, flipRotationSpeed * Time.deltaTime);
     }
 
+    void FixedUpdate()
+    {
+        // gravity ของแต่ละคน (แยกกัน)
+        if (gameOver) return;
+
+        Vector3 gravityDir = isUpsideDown ? Vector3.up : Vector3.down;
+        rb.AddForce(gravityDir * gravityStrength, ForceMode.Acceleration);
+    }
+
     void ApplyBallState()
     {
-        // Swap visuals
         if (normalModel != null) normalModel.SetActive(!isBall);
         if (ballModel != null)   ballModel.SetActive(isBall);
-
-        // Swap colliders
         if (boxCollider != null)    boxCollider.enabled    = !isBall;
         if (sphereCollider != null) sphereCollider.enabled = isBall;
     }
@@ -112,7 +153,6 @@ public class PlayerController : MonoBehaviour
     {
         isFlipping = true;
 
-        //กระโดดขึ้นก่อน
         Vector3 jumpDir = isUpsideDown ? Vector3.down : Vector3.up;
         rb.linearVelocity = Vector3.zero; 
         rb.AddForce(flipJumpForce * jumpDir, ForceMode.Impulse);
@@ -122,7 +162,6 @@ public class PlayerController : MonoBehaviour
         fxDirt.Stop();
         audioSource.PlayOneShot(jumpSound);
 
-        //ลอยขึ้นพอประมาณ
         yield return new WaitForSeconds(flipDelay);
         FlipGravity();
         isFlipping = false;
@@ -131,7 +170,6 @@ public class PlayerController : MonoBehaviour
     public void FlipGravity()
     {
         isUpsideDown = !isUpsideDown;
-        Physics.gravity = isUpsideDown ? -originalGravity : originalGravity;
         targetRotationZ = isUpsideDown ? 180f : 0f;
         isOnGround = false;
     }
@@ -146,19 +184,15 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {   
-            if(isImmune) return;
+            if (isImmune) return;
             TakeDamage(1);
-            Debug.Log("Collided with obstacle! Current Health: " + curentHealth);
+            Debug.Log(playerID + " hit obstacle! Health: " + curentHealth);
             animator.SetInteger("DeathType_int", 1);
             fxDirt.Stop();
             Instantiate(fxExplosionPrefab, transform.position, Quaternion.identity);
             audioSource.PlayOneShot(crashSound);
         }
-
-
-
     }
-
 
     public void TakeDamage(int damage)
     {
@@ -168,39 +202,64 @@ public class PlayerController : MonoBehaviour
         if (curentHealth <= 0)
         {
             curentHealth = 0;
-            Debug.Log("Game Over!");
+            Debug.Log(playerID + " Game Over!");
             gameOver = true;
             animator.SetBool("Death_b", true);
 
-            
+            if (GameManager.Instance != null)
+                GameManager.Instance.PlayerLost(playerID);
         }
+    }
+
+    // ===== ITEM EFFECTS =====
+
+    public void Heal(int amount)
+    {
+        if (gameOver) return;
+        curentHealth = Mathf.Min(curentHealth + amount, Maxhealth);
+        Debug.Log(playerID + " Healed! Health: " + curentHealth);
     }
 
     public void ActivateImmunity()
     {
-        if (isImmune) StopCoroutine(nameof(ImmortalityCoroutine)); // reset ถ้าเก็บซ้ำ
-        StartCoroutine(ImmortalityCoroutine(immunityDuration));
+        if (immunityCo != null) StopCoroutine(immunityCo);
+        immunityCo = StartCoroutine(ImmortalityCoroutine(immunityDuration));
+    }
+
+    public void ActivateSpeedBoost(float duration)
+    {
+        if (speedBoostCo != null) StopCoroutine(speedBoostCo);
+        speedBoostCo = StartCoroutine(SpeedBoostCoroutine(duration));
     }
 
     private IEnumerator ImmortalityCoroutine(float duration)
     {
         isImmune = true;
-
-        // กระพริบตัวละครตอน immune
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         float elapsed = 0f;
         bool visible = true;
 
-    while (elapsed < duration)
-    {
-        visible = !visible;
-        foreach (Renderer r in renderers) r.enabled = visible;
-        yield return new WaitForSeconds(0.15f);
-        elapsed += 0.15f;
-    }
+        while (elapsed < duration)
+        {
+            visible = !visible;
+            foreach (Renderer r in renderers) r.enabled = visible;
+            yield return new WaitForSeconds(0.15f);
+            elapsed += 0.15f;
+        }
 
-        // คืนค่าปกติ
         foreach (Renderer r in renderers) r.enabled = true;
         isImmune = false;
+    }
+
+    private IEnumerator SpeedBoostCoroutine(float duration)
+    {
+        float originalMultiplier = MoveLeft.speedMultiplier;
+        MoveLeft.speedMultiplier = originalMultiplier * speedBoostMultiplier;
+        Debug.Log(playerID + " Speed Boost! Multiplier: " + MoveLeft.speedMultiplier);
+
+        yield return new WaitForSeconds(duration);
+
+        MoveLeft.speedMultiplier = originalMultiplier;
+        Debug.Log(playerID + " Speed Boost ended.");
     }
 }

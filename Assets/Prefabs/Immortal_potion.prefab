@@ -122,10 +122,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2366119913700909885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc4248ac1b7fdbd42905c524138b1027, type: 3}
+  m_Script: {fileID: 11500000, guid: 56b735c44dd397c43abc47e64eb7dae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImmortalPotion
+  type: 1
+  healAmount: 1
   duration: 5
+  pickupVFX: {fileID: 0}
+  pickupSound: {fileID: 0}
+  rotateSpeed: 90
 --- !u!1 &6967236077451463411
 GameObject:
   m_ObjectHideFlags: 0

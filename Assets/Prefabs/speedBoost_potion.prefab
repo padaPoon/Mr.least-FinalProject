@@ -114,7 +114,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d2c056aed9b94345a8726d8d3603e95, type: 2}
+  - {fileID: 2100000, guid: 119029dbb38f44d4fbb1e486378cf611, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -171,6 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b735c44dd397c43abc47e64eb7dae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeedBoost
-  speedMultiplier: 1.5
-  animationSpeedMultiplier: 1.5
+  type: 2
+  healAmount: 1
   duration: 5
+  pickupVFX: {fileID: 0}
+  pickupSound: {fileID: 0}
+  rotateSpeed: 90
