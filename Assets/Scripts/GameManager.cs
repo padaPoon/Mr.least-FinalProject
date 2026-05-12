@@ -3,13 +3,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    
     private bool gameEnded = false;
+    private Player_ui playerUI;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+        
+        playerUI = FindObjectOfType<Player_ui>();
     }
 
     public void PlayerLost(PlayerController.PlayerID loser)
@@ -33,6 +36,12 @@ public class GameManager : MonoBehaviour
                 : PlayerController.PlayerID.Player1;
 
             Debug.Log("🏆 " + winner + " WINS! " + loser + " crashed first.");
+            
+            // แสดง GameOver Panel ตามผู้ชนะ
+            if (playerUI != null)
+            {
+                playerUI.ShowGameOverPanel(winner);
+            }
         }
     }
 }
