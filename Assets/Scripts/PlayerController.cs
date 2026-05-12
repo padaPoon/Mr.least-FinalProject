@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     public bool isImmune = false;
     public float immunityDuration = 5f;
     public Color immuneColor = Color.yellow;
+    [Header("Score")]
+    public int score = 0;
 
     [Header("Speed Boost")]
     public float speedBoostMultiplier = 2f;
@@ -230,7 +232,12 @@ public class PlayerController : MonoBehaviour
         if (speedBoostCo != null) StopCoroutine(speedBoostCo);
         speedBoostCo = StartCoroutine(SpeedBoostCoroutine(duration));
     }
-
+    public void AddScore(int amount)
+    {
+        if (gameOver) return;
+        score += amount;
+        Debug.Log(playerID + " collected coin! Score: " + score);
+    }   
     private IEnumerator ImmortalityCoroutine(float duration)
     {
         isImmune = true;

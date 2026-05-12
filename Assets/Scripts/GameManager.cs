@@ -34,8 +34,6 @@ public class GameManager : MonoBehaviour
             var winner = (loser == PlayerController.PlayerID.Player1)
                 ? PlayerController.PlayerID.Player2
                 : PlayerController.PlayerID.Player1;
-
-            Debug.Log("🏆 " + winner + " WINS! " + loser + " crashed first.");
             
             // แสดง GameOver Panel ตามผู้ชนะ
             if (playerUI != null)

@@ -6,13 +6,15 @@ public class Item : MonoBehaviour
     {
         Heal,         // ฟื้นหัวใจ
         Immunity,     // อมตะชั่วคราว
-        SpeedBoost    // เร่งความเร็วชั่วคราว
+        SpeedBoost,   // เร่งความเร็วชั่วคราว
+        Coin          // เหรียญสะสมคะแนน (เพิ่มในอนาคต)
     }
 
     [Header("Item Settings")]
     public ItemType type = ItemType.Heal;
     public int healAmount = 1;
     public float duration = 5f;
+    public int coinValue = 1;
 
     [Header("Effects")]
     public GameObject pickupVFX;
@@ -55,6 +57,9 @@ public class Item : MonoBehaviour
                 break;
             case ItemType.SpeedBoost:
                 player.ActivateSpeedBoost(duration);
+                break;
+            case ItemType.Coin:
+                player.AddScore(coinValue);
                 break;
         }
     }
