@@ -11,8 +11,8 @@ public class Item : MonoBehaviour
 
     [Header("Item Settings")]
     public ItemType type = ItemType.Heal;
-    public int healAmount = 1;         // ใช้กับ Heal
-    public float duration = 5f;        // ใช้กับ SpeedBoost (Immunity ใช้ค่าจาก player)
+    public int healAmount = 1;
+    public float duration = 5f;
 
     [Header("Effects")]
     public GameObject pickupVFX;
