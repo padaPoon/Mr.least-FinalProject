@@ -63,8 +63,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;             // ปิด gravity ของ Unity ใช้ของเราเอง
-
+        rb.useGravity = false;
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
 

@@ -6,20 +6,20 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] obstaclePrefab;
     public float spawnRate = 2f;
 
+    private PlayerController[] players;
+
     void Start()
     {
+        // หา player ทุกตัวครั้งเดียว (cache)
+        players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+
         InvokeRepeating(nameof(Spawn), 0, spawnRate);
     }
 
     void Spawn()
     {
-        // 1.18 stop moving left when the game is over
-        GameObject player = GameObject.Find("Player");
-        bool isGameOver = player.GetComponent<PlayerController>().gameOver;
-        if (isGameOver)
-        {
-            return;
-        }
+        // หยุด spawn เมื่อ "ทุกคน" game over
+        if (AllPlayersGameOver()) return;
 
         int randomIndex = Random.Range(0, obstaclePrefab.Length);
         Instantiate(
@@ -27,5 +27,15 @@ public class SpawnManager : MonoBehaviour
             spawnPoint[Random.Range(0, spawnPoint.Length)].position,
             obstaclePrefab[randomIndex].transform.rotation
         );
+    }
+
+    bool AllPlayersGameOver()
+    {
+        if (players == null || players.Length == 0) return false;
+        foreach (var p in players)
+        {
+            if (p != null && !p.gameOver) return false;
+        }
+        return true;
     }
 }
