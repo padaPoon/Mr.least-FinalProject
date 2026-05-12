@@ -153,9 +153,7 @@ MonoBehaviour:
   - {fileID: 1120623391}
   obstaclePrefab:
   - {fileID: 8872066452297259089, guid: ea64f003a1d29fc4bac7b8e72247c4ad, type: 3}
-  - {fileID: 2388469041918420798, guid: 434e573315f35184497735c87d92375e, type: 3}
-  - {fileID: 553790796840084489, guid: 497d65959fea3ac41babc95f4136d27b, type: 3}
-  - {fileID: 6967236077451463411, guid: fc3bbf3587f4c2e47bf9dedef5843340, type: 3}
+  - {fileID: 418413278173847537, guid: e15f7c34c5ca8074cb967cda2b7d2508, type: 3}
   spawnRate: 2
 --- !u!4 &132895512
 Transform:
@@ -1072,16 +1070,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1248567623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 094d1d95dcfe25d4db1f4b64731d05de, type: 3}
+  m_Script: {fileID: 11500000, guid: 573caf7bc36346d4f8163f912122a5bc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health_Ui
+  m_EditorClassIdentifier: Assembly-CSharp::Single_Player_ui
   emptyHeart: {fileID: 21300000, guid: f4e81e042a6809d45a1aa3d637bd6a71, type: 3}
   fullHeart: {fileID: 21300000, guid: d06119e5de6451546a053a9c9ea8c892, type: 3}
   hearts:
   - {fileID: 1296142839}
   - {fileID: 1105346636}
   - {fileID: 786595983}
-  playerController: {fileID: 0}
 --- !u!1 &1296142837
 GameObject:
   m_ObjectHideFlags: 0
