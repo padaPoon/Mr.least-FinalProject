@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public Single_Player_ui playerUI;
-
+    public Player_ui multiPlayerUI;
     private bool gameEnded = false;
 
     void Awake()
@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
         if (playerUI != null) 
         {
             playerUI.ShowGameOverPanel(winner);
+        }
+        if (multiPlayerUI != null)
+        {
+            multiPlayerUI.ShowGameOverPanel(winner);
         }
     }
 }

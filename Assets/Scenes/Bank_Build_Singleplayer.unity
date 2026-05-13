@@ -148,13 +148,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4bb65c88934e28448d8dd0360b2549b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint:
-  - {fileID: 1183671265}
-  - {fileID: 1120623391}
   obstaclePrefab:
   - {fileID: 8872066452297259089, guid: ea64f003a1d29fc4bac7b8e72247c4ad, type: 3}
+  - {fileID: 8872066452297259089, guid: ea64f003a1d29fc4bac7b8e72247c4ad, type: 3}
+  deathWallPrefab:
+  - {fileID: 4104013994226022886, guid: 3a8fb8d3243b933408f608b0a6afa457, type: 3}
+  deathWallChance: 1
+  itemPrefabs:
   - {fileID: 418413278173847537, guid: e15f7c34c5ca8074cb967cda2b7d2508, type: 3}
-  spawnRate: 2
+  groundSpawnPoints:
+  - {fileID: 1183671265}
+  ceilingSpawnPoints:
+  - {fileID: 1120623391}
+  spawnRate: 2.5
+  itemSpawnChance: 0.3
+  ceilingSpawnChance: 0.5
 --- !u!4 &132895512
 Transform:
   m_ObjectHideFlags: 0
@@ -1237,8 +1245,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281316848
-  m_fontColor: {r: 0.93962264, g: 0.710303, b: 0.18260586, a: 1}
+    rgba: 4278197545
+  m_fontColor: {r: 0.16226411, g: 0.11266006, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1294,7 +1302,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -518.8058, y: 0, z: 0, w: -95.52453}
+  m_margin: {x: -518.8058, y: 0, z: -338.8431, w: -95.52453}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1408,7 +1416,7 @@ Transform:
   m_GameObject: {fileID: 1120623390}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22, y: 7.5, z: 0}
+  m_LocalPosition: {x: 22, y: 8.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1573,7 +1581,7 @@ MonoBehaviour:
   scoreText: {fileID: 599423152}
   HighestScoreText: {fileID: 1027836778}
   currentScoreText: {fileID: 494635234}
-  gameOverPanel: {fileID: 1828497827}
+  gameOverPanel: {fileID: 743765552}
 --- !u!1 &1296142837
 GameObject:
   m_ObjectHideFlags: 0

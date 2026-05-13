@@ -360,12 +360,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4bb65c88934e28448d8dd0360b2549b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint:
-  - {fileID: 1183671265}
-  - {fileID: 325797819}
   obstaclePrefab:
   - {fileID: 8872066452297259089, guid: ea64f003a1d29fc4bac7b8e72247c4ad, type: 3}
+  deathWallPrefab: []
+  deathWallChance: 0.1
+  itemPrefabs: []
+  groundSpawnPoints:
+  - {fileID: 1183671265}
+  ceilingSpawnPoints:
+  - {fileID: 325797819}
   spawnRate: 2
+  itemSpawnChance: 0.3
+  ceilingSpawnChance: 0.5
 --- !u!4 &132895512
 Transform:
   m_ObjectHideFlags: 0
@@ -830,6 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   playerUI: {fileID: 0}
+  multiPlayerUI: {fileID: 550770506}
 --- !u!4 &444850421
 Transform:
   m_ObjectHideFlags: 0

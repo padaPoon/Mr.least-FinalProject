@@ -59,6 +59,7 @@ public class Player_ui : MonoBehaviour
 
     public void ShowGameOverPanel(PlayerController.PlayerID winner)
     {
+        Time.timeScale = 0f;
         if (winner == PlayerController.PlayerID.Player1)
         {
             // Player 1 ชนะ → แสดง GameoverPanel
