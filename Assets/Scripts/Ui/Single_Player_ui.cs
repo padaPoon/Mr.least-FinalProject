@@ -51,6 +51,16 @@ public class Single_Player_ui : MonoBehaviour
         {
             Debug.Log("Showing Game Over Panel for " + winner);
             gameOverPanel.SetActive(true);
+            currentScoreText.text = "Score: " + player.score;
+            
+            // บันทึก high score ถ้าเป็น record ใหม่
+            ScoreManager.TrySaveHighScore(player.score);
+            
+            // แสดง high score
+            if (HighestScoreText != null)
+            {
+                HighestScoreText.text = "Highest : " + ScoreManager.GetHighScore();
+            }
         }
 
         Debug.Log($"{winner} WINS!");
