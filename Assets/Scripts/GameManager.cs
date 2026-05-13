@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public Player_ui playerUI;
+    public Single_Player_ui playerUI;
 
     private bool gameEnded = false;
 
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
         if (allPlayers.Length <= 1)
         {
-            Debug.Log("Game Over!");
+            Debug.Log("Game Over! From single player mode.");
 
             int finalScore = allPlayers[0].score;
             bool isNewRecord = ScoreManager.TrySaveHighScore(finalScore);
@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"{winner} WINS {loser} crashed first.");
 
-        if (playerUI != null) playerUI.ShowGameOverPanel(winner);
+        if (playerUI != null) 
+        {
+            playerUI.ShowGameOverPanel(winner);
+        }
     }
 }

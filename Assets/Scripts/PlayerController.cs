@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(playerID + " Game Over!");
             gameOver = true;
             animator.SetBool("Death_b", true);
-
+            
             if (GameManager.Instance != null)
                 GameManager.Instance.PlayerLost(playerID);
         }

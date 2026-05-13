@@ -9,7 +9,13 @@ public class Single_Player_ui : MonoBehaviour
 
     public Image[] hearts;        // หัวใจของ Player
     
-    public TMP_Text scoreText;        // ข้อความแสดงคะแนน
+    public TMP_Text scoreText;  
+
+
+    public TMP_Text HighestScoreText;
+    public TMP_Text currentScoreText;
+
+    public GameObject gameOverPanel;  
 
     PlayerController player;
 
@@ -36,5 +42,17 @@ public class Single_Player_ui : MonoBehaviour
         {
             scoreText.text = "Score: " + player.score;
         }
+    }
+
+    public void ShowGameOverPanel(PlayerController.PlayerID winner)
+    {
+        // แสดงข้อความผู้ชนะ
+        if (gameOverPanel != null)
+        {
+            Debug.Log("Showing Game Over Panel for " + winner);
+            gameOverPanel.SetActive(true);
+        }
+
+        Debug.Log($"{winner} WINS!");
     }
 }

@@ -829,6 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedfadcf56064e840808d258c97e1646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  playerUI: {fileID: 0}
 --- !u!4 &444850421
 Transform:
   m_ObjectHideFlags: 0
