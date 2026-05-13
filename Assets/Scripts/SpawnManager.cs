@@ -54,6 +54,29 @@ public class SpawnManager : MonoBehaviour
             ? Quaternion.Euler(0f, 0f, 180f) * prefab.transform.rotation
             : prefab.transform.rotation;
         Instantiate(prefab, point.position, rot);
+        GameObject ChooseRandomPrefab()
+        {
+            float roll = Random.value;
+
+            // โอกาสเป็น Item
+            if (roll < itemSpawnChance)
+            {
+                if (itemPrefabs.Length == 0) return null;
+                return itemPrefabs[Random.Range(0, itemPrefabs.Length)];
+            }
+            // โอกาสเป็น DeathWall
+            else if (roll < itemSpawnChance + deathWallChance)
+            {
+                if (deathWallPrefab.Length == 0) return null;
+                return deathWallPrefab[Random.Range(0, deathWallPrefab.Length)];
+            }
+            // เหลือคือ Obstacle ปกติ
+            else
+            {
+                if (obstaclePrefab.Length == 0) return null;
+                return obstaclePrefab[Random.Range(0, obstaclePrefab.Length)];
+            }
+        }
     }
 
     bool AllPlayersGameOver()
