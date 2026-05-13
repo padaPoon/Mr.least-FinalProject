@@ -2,31 +2,58 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public Transform[] spawnPoint;
+    [Header("Obstacles")]
     public GameObject[] obstaclePrefab;
-    public float spawnRate = 2f;
+
+    [Header("Death Walls")]
+    public GameObject[] deathWallPrefab;
+    [Range(0f, 1f)]
+    public float deathWallChance = 0.1f;
+
+    [Header("Items")]
+    public GameObject[] itemPrefabs;
+
+    [Header("Spawn Points")]
+    public Transform[] groundSpawnPoints;
+    public Transform[] ceilingSpawnPoints;   
+
+    [Header("Spawn Settings")]
+    public float spawnRate = 2f;             
+
+    [Range(0f, 1f)]
+    public float itemSpawnChance = 0.3f;  
+
+    [Range(0f, 1f)]
+    public float ceilingSpawnChance = 0.5f;
 
     private PlayerController[] players;
 
     void Start()
     {
-        // หา player ทุกตัวครั้งเดียว (cache)
         players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
-
         InvokeRepeating(nameof(Spawn), 0, spawnRate);
     }
 
     void Spawn()
     {
-        // หยุด spawn เมื่อ "ทุกคน" game over
         if (AllPlayersGameOver()) return;
 
-        int randomIndex = Random.Range(0, obstaclePrefab.Length);
-        Instantiate(
-            obstaclePrefab[randomIndex],
-            spawnPoint[Random.Range(0, spawnPoint.Length)].position,
-            obstaclePrefab[randomIndex].transform.rotation
-        );
+        bool spawnItem = Random.value < itemSpawnChance;
+
+        GameObject[] prefabArray = spawnItem ? itemPrefabs : obstaclePrefab;
+        if (prefabArray == null || prefabArray.Length == 0) return;
+        GameObject prefab = prefabArray[Random.Range(0, prefabArray.Length)];
+
+        bool spawnOnCeiling = Random.value < ceilingSpawnChance;
+
+        Transform[] points = spawnOnCeiling ? ceilingSpawnPoints : groundSpawnPoints;
+        if (points == null || points.Length == 0) return;
+
+        Transform point = points[Random.Range(0, points.Length)];
+        Quaternion rot = spawnOnCeiling
+            ? Quaternion.Euler(0f, 0f, 180f) * prefab.transform.rotation
+            : prefab.transform.rotation;
+        Instantiate(prefab, point.position, rot);
     }
 
     bool AllPlayersGameOver()

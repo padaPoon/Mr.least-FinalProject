@@ -183,6 +183,10 @@ public class PlayerController : MonoBehaviour
             isOnGround = true;
             fxDirt.Play();
         }
+        else if (collision.gameObject.CompareTag("Wall"))
+        {
+            InstaKill();
+        }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {   
             if (isImmune) return;
@@ -193,6 +197,27 @@ public class PlayerController : MonoBehaviour
             Instantiate(fxExplosionPrefab, transform.position, Quaternion.identity);
             audioSource.PlayOneShot(crashSound);
         }
+    }
+
+    public void InstaKill()
+    {
+        if (gameOver) return;
+
+        curentHealth = 0;
+        gameOver = true;
+
+        if (animator != null)
+        {
+            animator.SetBool("Death_b", true);
+            animator.SetInteger("DeathType_int", 1);
+        }
+
+        fxDirt.Stop();
+        Instantiate(fxExplosionPrefab, transform.position, Quaternion.identity);
+        audioSource.PlayOneShot(crashSound);
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.PlayerLost(playerID);
     }
 
     public void TakeDamage(int damage)
@@ -211,8 +236,7 @@ public class PlayerController : MonoBehaviour
                 GameManager.Instance.PlayerLost(playerID);
         }
     }
-
-    // ===== ITEM EFFECTS =====
+    //Item Effects
 
     public void Heal(int amount)
     {

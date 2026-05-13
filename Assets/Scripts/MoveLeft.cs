@@ -1,28 +1,36 @@
-using System.Collections;
 using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
     public float speed = 10f;
-    
-    // ใช้ static เพื่อให้ทุก object ใช้ค่าเดียวกัน รวมถึง object ที่ spawn ทีหลัง
     public static float speedMultiplier = 1f;
+
+    private static PlayerController[] players;
+
+    void Start()
+    {
+        if (players == null || players.Length == 0)
+            players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+    }
 
     void Update()
     {
-        GameObject player = GameObject.Find("Player");
-        bool isGameOver = player.GetComponent<PlayerController>().gameOver;
-        if (isGameOver)
-        {
-            return;
-        }
-
-        transform.Translate(Vector3.left * speed * speedMultiplier * Time.deltaTime);
+        if (AllPlayersGameOver()) return;
+        transform.Translate(Vector3.left * speed * speedMultiplier * Time.deltaTime, Space.World);
 
         if (transform.position.x < -15 && gameObject.CompareTag("Obstacle"))
         {
             Destroy(gameObject);
         }
-        
+    }
+
+    bool AllPlayersGameOver()
+    {
+        if (players == null || players.Length == 0) return false;
+        foreach (var p in players)
+        {
+            if (p != null && !p.gameOver) return false;
+        }
+        return true;
     }
 }

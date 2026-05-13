@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 132895512}
-  - component: {fileID: 132895511}
+  - component: {fileID: 132895513}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -136,27 +136,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &132895511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 132895510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4bb65c88934e28448d8dd0360b2549b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint:
-  - {fileID: 1183671265}
-  - {fileID: 325797819}
-  obstaclePrefab:
-  - {fileID: 8872066452297259089, guid: ea64f003a1d29fc4bac7b8e72247c4ad, type: 3}
-  - {fileID: 553790796840084489, guid: 497d65959fea3ac41babc95f4136d27b, type: 3}
-  - {fileID: 6967236077451463411, guid: fc3bbf3587f4c2e47bf9dedef5843340, type: 3}
-  - {fileID: 2388469041918420798, guid: 434e573315f35184497735c87d92375e, type: 3}
-  spawnRate: 2
 --- !u!4 &132895512
 Transform:
   m_ObjectHideFlags: 0
@@ -174,6 +153,27 @@ Transform:
   - {fileID: 325797819}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &132895513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132895510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4bb65c88934e28448d8dd0360b2549b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
+  obstaclePrefab: []
+  deathWallPrefab: []
+  deathWallChance: 0.1
+  itemPrefabs: []
+  groundSpawnPoints: []
+  ceilingSpawnPoints: []
+  spawnRate: 2
+  itemSpawnChance: 0.3
+  ceilingSpawnChance: 0.5
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedfadcf56064e840808d258c97e1646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  playerUI: {fileID: 0}
 --- !u!4 &387358187
 Transform:
   m_ObjectHideFlags: 0
