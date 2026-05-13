@@ -3,16 +3,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    
+
+    public Player_ui playerUI;
+
     private bool gameEnded = false;
-    private Player_ui playerUI;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
-        
-        playerUI = FindObjectOfType<Player_ui>();
     }
 
     public void PlayerLost(PlayerController.PlayerID loser)
@@ -20,26 +19,48 @@ public class GameManager : MonoBehaviour
         if (gameEnded) return;
         gameEnded = true;
 
-        // นับจำนวน player ในฉาก
         var allPlayers = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
 
         if (allPlayers.Length <= 1)
         {
-            // โหมด 1 player → Game Over ธรรมดา
+            // โหมด 1 player → บันทึก high score
             Debug.Log("💀 Game Over!");
+
+            int finalScore = allPlayers[0].score;
+            bool isNewRecord = ScoreManager.TrySaveHighScore(finalScore);
+
+            if (isNewRecord)
+                Debug.Log("🎉 NEW HIGH SCORE! " + finalScore);
+            else
+                Debug.Log($"Score: {finalScore} | High Score: {ScoreManager.GetHighScore()}");
+
+            if (playerUI != null) playerUI.ShowGameOverPanel(loser);
+            return;
         }
-        else
+
+        // โหมด 2 player → ตัดสินจากคะแนน (ไม่บันทึก high score)
+        PlayerController p1 = null, p2 = null;
+        foreach (var p in allPlayers)
         {
-            // โหมด 2 player → ประกาศผู้ชนะ
-            var winner = (loser == PlayerController.PlayerID.Player1)
+            if (p.playerID == PlayerController.PlayerID.Player1) p1 = p;
+            else if (p.playerID == PlayerController.PlayerID.Player2) p2 = p;
+        }
+
+        int p1Score = p1 != null ? p1.score : 0;
+        int p2Score = p2 != null ? p2.score : 0;
+
+        PlayerController.PlayerID winner;
+        if (p1Score > p2Score)
+            winner = PlayerController.PlayerID.Player1;
+        else if (p2Score > p1Score)
+            winner = PlayerController.PlayerID.Player2;
+        else
+            winner = (loser == PlayerController.PlayerID.Player1)
                 ? PlayerController.PlayerID.Player2
                 : PlayerController.PlayerID.Player1;
-            
-            // แสดง GameOver Panel ตามผู้ชนะ
-            if (playerUI != null)
-            {
-                playerUI.ShowGameOverPanel(winner);
-            }
-        }
+
+        Debug.Log($"🏆 {winner} WINS! P1: {p1Score} | P2: {p2Score}");
+
+        if (playerUI != null) playerUI.ShowGameOverPanel(winner);
     }
 }
