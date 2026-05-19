@@ -22,10 +22,4 @@ public static class ScoreManager
         }
         return false;
     }
-
-    // รีเซ็ต high score (เผื่ออยากใส่ปุ่ม reset)
-    public static void ResetHighScore()
-    {
-        PlayerPrefs.DeleteKey(HIGH_SCORE_KEY);
-    }
 }
