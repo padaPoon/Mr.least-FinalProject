@@ -78,11 +78,13 @@ public class Single_Player_ui : MonoBehaviour
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene("Main Menu");
+        speedMultiplier = 1f;
     }
        public void RestartGame()
     {
         SceneManager.LoadScene("Bank_Build_Singleplayer");
         player = null; // รีเซ็ต player เพื่อให้ Start() หาใหม่
+        speedMultiplier = 1f;
     }
 
 }

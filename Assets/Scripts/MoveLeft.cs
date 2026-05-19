@@ -9,6 +9,7 @@ public class MoveLeft : MonoBehaviour
 
     void Start()
     {
+        speedMultiplier = 1f;
         RefreshPlayerReferences();
     }
 

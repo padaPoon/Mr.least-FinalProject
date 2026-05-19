@@ -84,5 +84,6 @@ public class Player_ui : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Main Menu");
+        MoveLeft.speedMultiplier = 1f; // รีเซ็ตความเร็วเมื่อกลับเมนู
     }
 }
