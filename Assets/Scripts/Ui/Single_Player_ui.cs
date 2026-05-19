@@ -70,4 +70,9 @@ public class Single_Player_ui : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
     }
+       public void RestartGame()
+    {
+        SceneManager.LoadScene("Bank_Build_Singleplayer");
+        player = null; // รีเซ็ต player เพื่อให้ Start() หาใหม่
+    }
 }

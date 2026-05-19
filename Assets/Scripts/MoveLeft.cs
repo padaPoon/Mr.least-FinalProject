@@ -9,12 +9,15 @@ public class MoveLeft : MonoBehaviour
 
     void Start()
     {
-        if (players == null || players.Length == 0)
-            players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+        RefreshPlayerReferences();
     }
 
     void Update()
     {
+        // Refresh player references if they become invalid
+        if (ArePlayersInvalid())
+            RefreshPlayerReferences();
+            
         if (AllPlayersGameOver()) return;
         transform.Translate(Vector3.left * speed * speedMultiplier * Time.deltaTime, Space.World);
 
@@ -22,6 +25,21 @@ public class MoveLeft : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void RefreshPlayerReferences()
+    {
+        players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+    }
+
+    bool ArePlayersInvalid()
+    {
+        if (players == null || players.Length == 0) return true;
+        foreach (var p in players)
+        {
+            if (p == null) return true; // Found a destroyed reference
+        }
+        return false;
     }
 
     bool AllPlayersGameOver()

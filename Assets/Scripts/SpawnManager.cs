@@ -58,19 +58,19 @@ public class SpawnManager : MonoBehaviour
         {
             float roll = Random.value;
 
-            // โอกาสเป็น Item
+            //Item
             if (roll < itemSpawnChance)
             {
                 if (itemPrefabs.Length == 0) return null;
                 return itemPrefabs[Random.Range(0, itemPrefabs.Length)];
             }
-            // โอกาสเป็น DeathWall
+            //DeathWall
             else if (roll < itemSpawnChance + deathWallChance)
             {
                 if (deathWallPrefab.Length == 0) return null;
                 return deathWallPrefab[Random.Range(0, deathWallPrefab.Length)];
             }
-            // เหลือคือ Obstacle ปกติ
+            //Obstacle ปกติ
             else
             {
                 if (obstaclePrefab.Length == 0) return null;
