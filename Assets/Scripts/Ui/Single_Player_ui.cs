@@ -10,6 +10,7 @@ public class Single_Player_ui : MonoBehaviour
     public Image[] hearts;        // หัวใจของ Player
     
     public TMP_Text scoreText;  
+    public TMP_Text DistantText;
 
 
     public TMP_Text HighestScoreText;
@@ -41,6 +42,14 @@ public class Single_Player_ui : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = "Score: " + player.score;
+        }
+
+        // แสดงระยะเวลาการวิ่ง
+        if (DistantText != null)
+        {
+            int minutes = (int)(player.elapsedTime / 60f);
+            int seconds = (int)(player.elapsedTime % 60f);
+            DistantText.text = $"Time: {minutes:00}:{seconds:00}";
         }
     }
 
@@ -75,4 +84,5 @@ public class Single_Player_ui : MonoBehaviour
         SceneManager.LoadScene("Bank_Build_Singleplayer");
         player = null; // รีเซ็ต player เพื่อให้ Start() หาใหม่
     }
+
 }

@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
     private bool isFlipping = false;
     private bool isBall = false;
     private float targetRotationZ = 0f;
+    
+    public float elapsedTime = 0f;  // ระยะเวลาการวิ่ง
 
     // ปุ่มของแต่ละคน
     private Key jumpKey;
@@ -97,6 +99,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Track elapsed time
+        if (!gameOver)
+        {
+            elapsedTime += Time.deltaTime;
+        }
+        
         if (gameOver) return;
         if (Keyboard.current == null) return;
 
