@@ -38,14 +38,10 @@ public class SpawnManager : MonoBehaviour
     {
         if (AllPlayersGameOver()) return;
 
-        bool spawnItem = Random.value < itemSpawnChance;
-
-        GameObject[] prefabArray = spawnItem ? itemPrefabs : obstaclePrefab;
-        if (prefabArray == null || prefabArray.Length == 0) return;
-        GameObject prefab = prefabArray[Random.Range(0, prefabArray.Length)];
+        GameObject prefab = ChooseRandomPrefab();
+        if (prefab == null) return;
 
         bool spawnOnCeiling = Random.value < ceilingSpawnChance;
-
         Transform[] points = spawnOnCeiling ? ceilingSpawnPoints : groundSpawnPoints;
         if (points == null || points.Length == 0) return;
 
@@ -53,30 +49,29 @@ public class SpawnManager : MonoBehaviour
         Quaternion rot = spawnOnCeiling
             ? Quaternion.Euler(0f, 0f, 180f) * prefab.transform.rotation
             : prefab.transform.rotation;
-        Instantiate(prefab, point.position, rot);
-        GameObject ChooseRandomPrefab()
-        {
-            float roll = Random.value;
 
-            //Item
-            if (roll < itemSpawnChance)
+        Instantiate(prefab, point.position, rot);
+    }
+
+    GameObject ChooseRandomPrefab()
+    {
+        float roll = Random.value;
+
+        if (roll < itemSpawnChance)
             {
                 if (itemPrefabs.Length == 0) return null;
                 return itemPrefabs[Random.Range(0, itemPrefabs.Length)];
             }
-            //DeathWall
-            else if (roll < itemSpawnChance + deathWallChance)
+        else if (roll < itemSpawnChance + deathWallChance)
             {
                 if (deathWallPrefab.Length == 0) return null;
                 return deathWallPrefab[Random.Range(0, deathWallPrefab.Length)];
             }
-            //Obstacle ปกติ
-            else
+        else
             {
                 if (obstaclePrefab.Length == 0) return null;
                 return obstaclePrefab[Random.Range(0, obstaclePrefab.Length)];
             }
-        }
     }
 
     bool AllPlayersGameOver()
