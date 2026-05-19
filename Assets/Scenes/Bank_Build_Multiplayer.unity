@@ -499,9 +499,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclePrefab:
   - {fileID: 8872066452297259089, guid: ea64f003a1d29fc4bac7b8e72247c4ad, type: 3}
-  deathWallPrefab: []
+  - {fileID: 114304, guid: 3daef342e8f3f9548b04424eac7d4d0d, type: 3}
+  deathWallPrefab:
+  - {fileID: 4104013994226022886, guid: 3a8fb8d3243b933408f608b0a6afa457, type: 3}
   deathWallChance: 0.1
-  itemPrefabs: []
+  itemPrefabs:
+  - {fileID: 553790796840084489, guid: 497d65959fea3ac41babc95f4136d27b, type: 3}
+  - {fileID: 6967236077451463411, guid: fc3bbf3587f4c2e47bf9dedef5843340, type: 3}
+  - {fileID: 2388469041918420798, guid: 434e573315f35184497735c87d92375e, type: 3}
   groundSpawnPoints:
   - {fileID: 1183671265}
   ceilingSpawnPoints:
