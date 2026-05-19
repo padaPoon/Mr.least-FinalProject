@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 public class Single_Player_ui : MonoBehaviour
 {
     public Sprite emptyHeart;
@@ -64,5 +64,10 @@ public class Single_Player_ui : MonoBehaviour
         }
 
         Debug.Log($"{winner} WINS!");
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }

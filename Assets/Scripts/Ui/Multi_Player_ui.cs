@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Player_ui : MonoBehaviour
 {
     public GameObject GameoverPanel; // แพนเนลสำหรับแสดงเมื่อเกมจบ
@@ -78,5 +78,11 @@ public class Player_ui : MonoBehaviour
                 GameoverPanel2.SetActive(true);
             }
         }
+    }
+
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Main Menu");
     }
 }

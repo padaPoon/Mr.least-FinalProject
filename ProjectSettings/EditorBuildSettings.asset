@@ -4,7 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Bank_Build_Multiplayer.unity
+    guid: b2a1c415724e25b4faec10c81fc1407b
+  - enabled: 1
+    path: Assets/Scenes/Bank_Build_Singleplayer.unity
+    guid: a3a8c61cd1d838046811ed1bff09f5b5
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 73dd9d456fb885f42b0bd9ed46e11579
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0
